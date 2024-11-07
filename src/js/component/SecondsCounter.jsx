@@ -2,11 +2,18 @@ import React, { useEffect, useState } from "react";
 
 const SecondsCounter = () => {
   const [seconds, setSeconds] = useState(0);
+  const [isActive, setIsActive] = useState(false);
+
   useEffect(() => {
-    setInterval(() => {
-      setSeconds((e) => e + 1);
-    }, 1000);
-  }, []);
+    let myInterval;
+
+    if (isActive) {
+      myInterval = setInterval(() => {
+        setSeconds((prev) => prev + 1);
+      }, 1000);
+    }
+    return () => clearInterval(myInterval);
+  }, [isActive]);
 
   let numberOne = seconds;
   let numberTwo = 0;
@@ -35,30 +42,58 @@ const SecondsCounter = () => {
     numberSix++;
   }
 
+  const startClock = () => {
+    if (numberOne === 0) {
+      setIsActive(true);
+    }
+  };
+  const pauseClock = () => setIsActive(false);
+  const resumeClock = () => setIsActive(true);
+  const stopTheClock = () => {
+    setIsActive(false);
+    setSeconds(0);
+  };
+
   return (
-    <div className="bg-black text-white d-flex justify-content-center">
-      <div className="bg-dark mx-3">
-        <p className="fs-1">🕘</p>
+    <>
+      <div className="bg-black text-white d-flex justify-content-center">
+        <div className="bg-dark mx-3">
+          <p className="fs-1">🕘</p>
+        </div>
+        <div className="bg-dark mx-3">
+          <p className="fs-1">{numberSix}</p>
+        </div>
+        <div className="bg-dark mx-3">
+          <p className="fs-1">{numberFive}</p>
+        </div>
+        <div className="bg-dark mx-3">
+          <p className="fs-1">{numberFour}</p>
+        </div>
+        <div className="bg-dark mx-3">
+          <p className="fs-1">{numberThree}</p>
+        </div>
+        <div className="bg-dark mx-3">
+          <p className="fs-1">{numberTwo}</p>
+        </div>
+        <div className="bg-dark mx-3">
+          <p className="fs-1">{numberOne}</p>
+        </div>
       </div>
-      <div className="bg-dark mx-3">
-        <p className="fs-1">{numberSix}</p>
+      <div className="text-center">
+        <button onClick={startClock} className="btn btn-success">
+          Start the clock
+        </button>
+        <button onClick={pauseClock} className="btn btn-secondary">
+          Pause the clock
+        </button>
+        <button onClick={resumeClock} className="btn btn-primary">
+          Resume the clock
+        </button>
+        <button onClick={stopTheClock} className="btn btn-danger">
+          Stop the clock
+        </button>
       </div>
-      <div className="bg-dark mx-3">
-        <p className="fs-1">{numberFive}</p>
-      </div>
-      <div className="bg-dark mx-3">
-        <p className="fs-1">{numberFour}</p>
-      </div>
-      <div className="bg-dark mx-3">
-        <p className="fs-1">{numberThree}</p>
-      </div>
-      <div className="bg-dark mx-3">
-        <p className="fs-1">{numberTwo}</p>
-      </div>
-      <div className="bg-dark mx-3">
-        <p className="fs-1">{numberOne}</p>
-      </div>
-    </div>
+    </>
   );
 };
 
