@@ -43,13 +43,29 @@ const SecondsCounter = () => {
   }
 
   const startClock = () => {
-    if (numberOne === 0) {
-      setIsActive(true);
+    if (numberOne !== 0) {
+      return alert(
+        "You can´t start if counter is > 1. If you want to start over please stop it first."
+      );
     }
+    setIsActive(true);
   };
-  const pauseClock = () => setIsActive(false);
-  const resumeClock = () => setIsActive(true);
+  const pauseClock = () => {
+    if (numberOne === 0) {
+      return alert("You can´t pause it if you don´t start it first.");
+    }
+    setIsActive(false);
+  };
+  const resumeClock = () => {
+    if (numberOne === 0) {
+      return alert("You need to start it first.");
+    }
+    setIsActive(true);
+  };
   const stopTheClock = () => {
+    if (numberOne === 0) {
+      return alert("You can´t stop what is not started.");
+    }
     setIsActive(false);
     setSeconds(0);
   };
@@ -79,17 +95,17 @@ const SecondsCounter = () => {
           <p className="fs-1">{numberOne}</p>
         </div>
       </div>
-      <div className="text-center">
-        <button onClick={startClock} className="btn btn-success">
+      <div className="text-center m-5">
+        <button onClick={startClock} className="btn btn-success m-1">
           Start the clock
         </button>
-        <button onClick={pauseClock} className="btn btn-secondary">
+        <button onClick={pauseClock} className="btn btn-secondary m-1">
           Pause the clock
         </button>
-        <button onClick={resumeClock} className="btn btn-primary">
+        <button onClick={resumeClock} className="btn btn-primary m-1">
           Resume the clock
         </button>
-        <button onClick={stopTheClock} className="btn btn-danger">
+        <button onClick={stopTheClock} className="btn btn-danger m-1">
           Stop the clock
         </button>
       </div>
