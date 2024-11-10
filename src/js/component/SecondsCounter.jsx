@@ -3,71 +3,97 @@ import React, { useEffect, useState } from "react";
 const SecondsCounter = () => {
   const [seconds, setSeconds] = useState(0);
   const [isActive, setIsActive] = useState(false);
+  const [numberOne, setNumberOne] = useState(0);
+  const [numberTwo, setNumberTwo] = useState(0);
+  const [numberThree, setNumberThree] = useState(0);
+  const [numberFour, setNumberFour] = useState(0);
+  const [numberFive, setNumberFive] = useState(0);
+  const [numberSix, setNumberSix] = useState(0);
 
   useEffect(() => {
     let myInterval;
 
     if (isActive) {
       myInterval = setInterval(() => {
-        setSeconds((prev) => prev + 1);
+        setSeconds((prev) => {
+          const newSeconds = prev + 1;
+
+          setNumberOne(newSeconds % 10);
+          setNumberTwo(Math.floor(newSeconds / 10) % 10);
+          setNumberThree(Math.floor(newSeconds / 100) % 10);
+          setNumberFour(Math.floor(newSeconds / 1000) % 10);
+          setNumberFive(Math.floor(newSeconds / 10000) % 10);
+          setNumberSix(Math.floor(newSeconds / 100000) % 10);
+
+          return newSeconds;
+        });
       }, 1000);
     }
     return () => clearInterval(myInterval);
   }, [isActive]);
 
-  let numberOne = seconds;
-  let numberTwo = 0;
-  let numberThree = 0;
-  let numberFour = 0;
-  let numberFive = 0;
-  let numberSix = 0;
   if (numberOne === 10) {
-    numberOne = 0;
-    numberTwo++;
+    setNumberOne(0);
+    setNumberTwo + 1;
   }
   if (numberTwo === 10) {
-    numberTwo = 0;
-    numberThree++;
+    setNumberTwo(0);
+    setNumberThree + 1;
   }
   if (numberThree === 10) {
-    numberThree = 0;
-    numberFour++;
+    setNumberThree(0);
+    setNumberFour + 1;
   }
   if (numberFour === 10) {
-    numberFour = 0;
-    numberFive++;
+    setNumberFour(0);
+    setNumberFive + 1;
   }
   if (numberFive === 10) {
-    numberFive = 0;
-    numberSix++;
+    setNumberFive(0);
+    setNumberSix + 1;
   }
 
   const startClock = () => {
-    if (numberOne !== 0) {
-      return alert(
-        "You can´t start if counter is > 1. If you want to start over please stop it first."
+    if (seconds !== 0) {
+      const clockInput = prompt(
+        "The clock is running, do you want to start over? Y/N"
       );
+      if (clockInput.toLowerCase() === "y") {
+        setSeconds(0);
+        setNumberOne(0);
+        setNumberTwo(0);
+        setNumberThree(0);
+        setNumberFour(0);
+        setNumberFive(0);
+        setNumberSix(0);
+      }
     }
     setIsActive(true);
   };
   const pauseClock = () => {
-    if (numberOne === 0) {
-      return alert("You can´t pause it if you don´t start it first.");
+    if (seconds === 0) {
+      return alert("Clock is not started.");
     }
     setIsActive(false);
   };
   const resumeClock = () => {
-    if (numberOne === 0) {
-      return alert("You need to start it first.");
+    if (seconds === 0) {
+      return alert("Start it first.");
     }
     setIsActive(true);
   };
   const stopTheClock = () => {
-    if (numberOne === 0) {
-      return alert("You can´t stop what is not started.");
+    if (seconds === 0) {
+      return alert("Clock is not started.");
     }
     setIsActive(false);
     setSeconds(0);
+    setNumberOne(0);
+    setNumberTwo(0);
+    setNumberThree(0);
+    setNumberFour(0);
+    setNumberFive(0);
+    setNumberSix(0);
   };
 
   return (
