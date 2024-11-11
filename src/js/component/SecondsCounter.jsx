@@ -78,7 +78,7 @@ const SecondsCounter = () => {
   };
   const resumeClock = () => {
     if (seconds === 0) {
-      return alert("Start it first.");
+      return alert("Clock is not started.");
     }
     setIsActive(true);
   };
@@ -98,26 +98,26 @@ const SecondsCounter = () => {
 
   return (
     <>
-      <div className="bg-black text-white d-flex justify-content-center">
-        <div className="bg-dark mx-3">
-          <p className="fs-1">🕘</p>
+      <div className="row bg-black text-white d-flex justify-content-center">
+        <div className="col-12 col-md-1 text-center align-content-center bg-dark mx-3">
+          <i className="fa-regular fa-clock fa-9x"></i>
         </div>
-        <div className="bg-dark mx-3">
+        <div className="col-12 col-md-1 text-center bg-dark mx-3">
           <p className="fs-1">{numberSix}</p>
         </div>
-        <div className="bg-dark mx-3">
+        <div className="col-12 col-md-1 text-center bg-dark mx-3">
           <p className="fs-1">{numberFive}</p>
         </div>
-        <div className="bg-dark mx-3">
+        <div className="col-12 col-md-1 text-center bg-dark mx-3">
           <p className="fs-1">{numberFour}</p>
         </div>
-        <div className="bg-dark mx-3">
+        <div className="col-12 col-md-1 text-center bg-dark mx-3">
           <p className="fs-1">{numberThree}</p>
         </div>
-        <div className="bg-dark mx-3">
+        <div className="col-12 col-md-1 text-center bg-dark mx-3">
           <p className="fs-1">{numberTwo}</p>
         </div>
-        <div className="bg-dark mx-3">
+        <div className="col-12 col-md-1 text-center bg-dark mx-3">
           <p className="fs-1">{numberOne}</p>
         </div>
       </div>
